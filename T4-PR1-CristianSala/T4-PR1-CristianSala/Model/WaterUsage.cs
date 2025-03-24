@@ -1,7 +1,14 @@
-﻿namespace T4_PR1_CristianSala.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace T4_PR1_CristianSala.Model
 {
     public class WaterUsage
-    { public int Any { get; set; }
+    { 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        public int Any { get; set; }
         public int CodiComarca { get; set; }
         public string Comarca { get; set; } = string.Empty;
         public int Poblacio { get; set; }

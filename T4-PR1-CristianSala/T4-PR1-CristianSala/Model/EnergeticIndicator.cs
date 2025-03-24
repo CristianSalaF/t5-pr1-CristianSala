@@ -1,7 +1,13 @@
-﻿namespace T4_PR1_CristianSala.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace T4_PR1_CristianSala.Model
 {
     public class EnergeticIndicator
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
         public string Data { get; set; }
         public double PBEE_Hidroelectr { get; set; }
         public double PBEE_Carbo { get; set; }

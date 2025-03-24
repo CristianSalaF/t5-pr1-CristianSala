@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using T4_PR1_CristianSala.Data;
+
 namespace T4_PR1_CristianSala
 {
     public class Program
@@ -8,6 +11,13 @@ namespace T4_PR1_CristianSala
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddDbContext<EcoEnergyDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            //TODO:
+            //dotnet ef migrations add InitialCreate
+            //dotnet ef database update
+            //builder.Services.AddScoped<SimulationService>();
 
             var app = builder.Build();
 
