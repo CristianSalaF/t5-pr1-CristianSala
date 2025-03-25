@@ -2,16 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using T4_PR1_CristianSala.Model;
+using T4_PR1_CristianSala.Service;
 
 namespace T4_PR1_CristianSala.Pages
 {
     public class AddSimulationModel : PageModel
     {
-        private readonly SimulationFileManager _fileManager;
+        private readonly EcoEnergyDbService _ecoEnergyDbService;
 
-        public AddSimulationModel()
+        public AddSimulationModel(EcoEnergyDbService ecoEnergyDbService)
         {
-            _fileManager = new SimulationFileManager();
+            _ecoEnergyDbService = ecoEnergyDbService;
             SimulationInput = new SimulationInputModel();
         }
 
@@ -106,7 +107,7 @@ namespace T4_PR1_CristianSala.Pages
                     break;
             }
 
-            _fileManager.SaveSimulation(simulation);
+            _ecoEnergyDbService.SaveSimulation(simulation);
 
             return RedirectToPage("./Simulations");
         }

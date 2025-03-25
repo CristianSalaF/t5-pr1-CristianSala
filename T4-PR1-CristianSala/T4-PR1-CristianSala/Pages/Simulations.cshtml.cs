@@ -1,24 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using T4_PR1_CristianSala.Model;
+using T4_PR1_CristianSala.Service;
 
 namespace T4_PR1_CristianSala.Pages
 {
     public class SimulationsModel : PageModel
     {
-        private readonly SimulationFileManager _fileManager;
+        private readonly EcoEnergyDbService _ecoEnergyDbService;
+        public List<BaseSimulation> Simulations { get; set; }
 
-        public SimulationsModel()
+        public SimulationsModel(EcoEnergyDbService ecoEnergyDbService)
         {
-            _fileManager = new SimulationFileManager();
+            _ecoEnergyDbService = ecoEnergyDbService;
             Simulations = new List<BaseSimulation>();
         }
 
-        public List<BaseSimulation> Simulations { get; set; }
-
         public void OnGet()
         {
-            Simulations = _fileManager.LoadSimulations();
+            Simulations = _ecoEnergyDbService.GetAllSimulations();
         }
     }
 }
