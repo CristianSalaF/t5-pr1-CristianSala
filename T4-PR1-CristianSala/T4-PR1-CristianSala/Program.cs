@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using T4_PR1_CristianSala.Data;
+using T4_PR1_CristianSala.Service;
 
 namespace T4_PR1_CristianSala
 {
@@ -14,10 +15,10 @@ namespace T4_PR1_CristianSala
 
             builder.Services.AddDbContext<EcoEnergyDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            //TODO:
+            //TODO: create DB(EcoEnergyDB), then db migration
             //dotnet ef migrations add InitialCreate
             //dotnet ef database update
-            //builder.Services.AddScoped<SimulationService>();
+            builder.Services.AddScoped<EcoEnergyDbService>();
 
             var app = builder.Build();
 
