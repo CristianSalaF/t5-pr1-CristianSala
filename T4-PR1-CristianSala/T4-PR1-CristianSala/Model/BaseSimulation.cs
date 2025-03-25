@@ -1,9 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T4_PR1_CristianSala.Model
 {
     public abstract class BaseSimulation
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
         public DateTime SimulationDate { get; set; } = DateTime.Now;
         public string Type { get; set; }
         public double Ratio { get; set; }
