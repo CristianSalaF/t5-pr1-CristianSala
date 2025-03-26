@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace T4_PR1_CristianSala.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class FixNullIndicators : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,25 +34,25 @@ namespace T4_PR1_CristianSala.Migrations
                     CDEEBC_DemandaElectr = table.Column<double>(type: "float", nullable: false),
                     CDEEBC_TotalEBCMercatRegulat = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CDEEBC_TotalEBCMercatLliure = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FEE_Industria = table.Column<double>(type: "float", nullable: false),
-                    FEE_Terciari = table.Column<double>(type: "float", nullable: false),
-                    FEE_Domestic = table.Column<double>(type: "float", nullable: false),
-                    FEE_Primari = table.Column<double>(type: "float", nullable: false),
-                    FEE_Energetic = table.Column<double>(type: "float", nullable: false),
-                    FEEI_ConsObrPub = table.Column<double>(type: "float", nullable: false),
-                    FEEI_SiderFoneria = table.Column<double>(type: "float", nullable: false),
-                    FEEI_Metalurgia = table.Column<double>(type: "float", nullable: false),
-                    FEEI_IndusVidre = table.Column<double>(type: "float", nullable: false),
-                    FEEI_CimentsCalGuix = table.Column<double>(type: "float", nullable: false),
-                    FEEI_AltresMatConstr = table.Column<double>(type: "float", nullable: false),
-                    FEEI_QuimPetroquim = table.Column<double>(type: "float", nullable: false),
-                    FEEI_ConstrMedTrans = table.Column<double>(type: "float", nullable: false),
-                    FEEI_RestaTransforMetal = table.Column<double>(type: "float", nullable: false),
-                    FEEI_AlimBegudaTabac = table.Column<double>(type: "float", nullable: false),
-                    FEEI_TextilConfecCuirCalcat = table.Column<double>(type: "float", nullable: false),
-                    FEEI_PastaPaperCartro = table.Column<double>(type: "float", nullable: false),
-                    FEEI_AltresIndus = table.Column<double>(type: "float", nullable: false),
-                    DGGN_PuntFrontEnagas = table.Column<double>(type: "float", nullable: false),
+                    FEE_Industria = table.Column<double>(type: "float", nullable: true),
+                    FEE_Terciari = table.Column<double>(type: "float", nullable: true),
+                    FEE_Domestic = table.Column<double>(type: "float", nullable: true),
+                    FEE_Primari = table.Column<double>(type: "float", nullable: true),
+                    FEE_Energetic = table.Column<double>(type: "float", nullable: true),
+                    FEEI_ConsObrPub = table.Column<double>(type: "float", nullable: true),
+                    FEEI_SiderFoneria = table.Column<double>(type: "float", nullable: true),
+                    FEEI_Metalurgia = table.Column<double>(type: "float", nullable: true),
+                    FEEI_IndusVidre = table.Column<double>(type: "float", nullable: true),
+                    FEEI_CimentsCalGuix = table.Column<double>(type: "float", nullable: true),
+                    FEEI_AltresMatConstr = table.Column<double>(type: "float", nullable: true),
+                    FEEI_QuimPetroquim = table.Column<double>(type: "float", nullable: true),
+                    FEEI_ConstrMedTrans = table.Column<double>(type: "float", nullable: true),
+                    FEEI_RestaTransforMetal = table.Column<double>(type: "float", nullable: true),
+                    FEEI_AlimBegudaTabac = table.Column<double>(type: "float", nullable: true),
+                    FEEI_TextilConfecCuirCalcat = table.Column<double>(type: "float", nullable: true),
+                    FEEI_PastaPaperCartro = table.Column<double>(type: "float", nullable: true),
+                    FEEI_AltresIndus = table.Column<double>(type: "float", nullable: true),
+                    DGGN_PuntFrontEnagas = table.Column<double>(type: "float", nullable: true),
                     DGGN_DistrAlimGNL = table.Column<double>(type: "float", nullable: false),
                     DGGN_ConsumGNCentrTerm = table.Column<double>(type: "float", nullable: false),
                     CCAC_GasolinaAuto = table.Column<double>(type: "float", nullable: false),

@@ -1,16 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using T4_PR1_CristianSala.Data;
 using T4_PR1_CristianSala.Model;
 
 namespace T4_PR1_CristianSala.Pages
 {
     public class AddEnergeticIndicatorModel : PageModel
     {
-        private readonly EnergeticIndicatorFileManager _manager = new();
+        private readonly EcoEnergyDbContext _context;
 
         [BindProperty]
         public EnergeticIndicatorInputModel EnergeticIndicatorInput { get; set; } = new();
+
+        public AddEnergeticIndicatorModel(EcoEnergyDbContext context)
+        {
+            _context = context;
+        }
 
         public class EnergeticIndicatorInputModel
         {
@@ -69,7 +75,7 @@ namespace T4_PR1_CristianSala.Pages
         /// Saves the energetic indicator to the file
         /// </summary>
         /// <returns></returns>
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
             {
@@ -122,7 +128,8 @@ namespace T4_PR1_CristianSala.Pages
                 CCAC_GasoilA = 0
             };
 
-            _manager.SaveIndicator(indicator);
+            _context.EnergeticIndicators.Add(indicator);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./EnergeticIndicators");
         }
