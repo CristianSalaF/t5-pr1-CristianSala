@@ -12,8 +12,8 @@ using T4_PR1_CristianSala.Data;
 namespace T4_PR1_CristianSala.Migrations
 {
     [DbContext(typeof(EcoEnergyDbContext))]
-    [Migration("20250325195048_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250326223320_FixNullIndicators")]
+    partial class FixNullIndicators
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,65 +117,65 @@ namespace T4_PR1_CristianSala.Migrations
                     b.Property<double>("DGGN_DistrAlimGNL")
                         .HasColumnType("float");
 
-                    b.Property<double>("DGGN_PuntFrontEnagas")
+                    b.Property<double?>("DGGN_PuntFrontEnagas")
                         .HasColumnType("float");
 
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("FEEI_AlimBegudaTabac")
+                    b.Property<double?>("FEEI_AlimBegudaTabac")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_AltresIndus")
+                    b.Property<double?>("FEEI_AltresIndus")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_AltresMatConstr")
+                    b.Property<double?>("FEEI_AltresMatConstr")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_CimentsCalGuix")
+                    b.Property<double?>("FEEI_CimentsCalGuix")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_ConsObrPub")
+                    b.Property<double?>("FEEI_ConsObrPub")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_ConstrMedTrans")
+                    b.Property<double?>("FEEI_ConstrMedTrans")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_IndusVidre")
+                    b.Property<double?>("FEEI_IndusVidre")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_Metalurgia")
+                    b.Property<double?>("FEEI_Metalurgia")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_PastaPaperCartro")
+                    b.Property<double?>("FEEI_PastaPaperCartro")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_QuimPetroquim")
+                    b.Property<double?>("FEEI_QuimPetroquim")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_RestaTransforMetal")
+                    b.Property<double?>("FEEI_RestaTransforMetal")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_SiderFoneria")
+                    b.Property<double?>("FEEI_SiderFoneria")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEEI_TextilConfecCuirCalcat")
+                    b.Property<double?>("FEEI_TextilConfecCuirCalcat")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEE_Domestic")
+                    b.Property<double?>("FEE_Domestic")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEE_Energetic")
+                    b.Property<double?>("FEE_Energetic")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEE_Industria")
+                    b.Property<double?>("FEE_Industria")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEE_Primari")
+                    b.Property<double?>("FEE_Primari")
                         .HasColumnType("float");
 
-                    b.Property<double>("FEE_Terciari")
+                    b.Property<double?>("FEE_Terciari")
                         .HasColumnType("float");
 
                     b.Property<double>("PBEE_Carbo")

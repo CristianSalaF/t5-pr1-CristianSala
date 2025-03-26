@@ -6,12 +6,12 @@ namespace T4_PR1_CristianSala.Model
     {
         private const string IndicadorsFilePath = "ModelData/indicadors_energetics_cat.csv";
         private const string IndicadorsJsonPath = "ModelData/indicadors_energetics_cat.json";
-
+        
+        /*
         public EnergeticIndicatorFileManager()
         {
             FileExistsOrCreateJson();
         }
-
         /// <summary>
         /// Checks if the JSON file exists and creates it if it doesn't
         /// </summary>
@@ -22,7 +22,7 @@ namespace T4_PR1_CristianSala.Model
             {
                 if (directory != null) Directory.CreateDirectory(directory);
             }
-            
+
             if (!File.Exists(IndicadorsJsonPath))
             {
                 // Create JSON file with empty array if it doesn't exist
@@ -37,19 +37,19 @@ namespace T4_PR1_CristianSala.Model
         public List<EnergeticIndicator> LoadIndicators()
         {
             var indicators = new List<EnergeticIndicator>();
-            
+
             try
             {
                 if (File.Exists(IndicadorsFilePath))
                 {
                     // Skip header line
                     var lines = File.ReadAllLines(IndicadorsFilePath).Skip(1);
-                    
+
                     foreach (string line in lines)
                     {
                         var parts = line.Split(',');
                         if (parts.Length < 40) continue;
-                        
+
                         try
                         {
                             var indicator = new EnergeticIndicator
@@ -95,7 +95,7 @@ namespace T4_PR1_CristianSala.Model
                                 CCAC_GasolinaAuto = ParseDouble(parts[38]),
                                 CCAC_GasoilA = ParseDouble(parts[39])
                             };
-                            
+
                             indicators.Add(indicator);
                         }
                         catch (Exception ex)
@@ -119,7 +119,7 @@ namespace T4_PR1_CristianSala.Model
             {
                 Console.WriteLine($"Error loading energy indicators: {ex.Message}");
             }
-            
+
             return indicators;
         }
 
@@ -146,7 +146,7 @@ namespace T4_PR1_CristianSala.Model
             try
             {
                 var existingIndicators = new List<EnergeticIndicator>();
-                
+
                 if (File.Exists(IndicadorsJsonPath))
                 {
                     string jsonContent = File.ReadAllText(IndicadorsJsonPath);
@@ -156,14 +156,14 @@ namespace T4_PR1_CristianSala.Model
                         existingIndicators = deserializedIndicators;
                     }
                 }
-                
+
                 existingIndicators.Add(indicator);
-                
+
                 string updatedJson = JsonSerializer.Serialize(existingIndicators, new JsonSerializerOptions
                 {
                     WriteIndented = true
                 });
-                
+
                 File.WriteAllText(IndicadorsJsonPath, updatedJson);
             }
             catch (Exception ex)
@@ -179,7 +179,7 @@ namespace T4_PR1_CristianSala.Model
         public List<EnergeticIndicator> GetRecordsWithProdNetaGreaterThan3000()
         {
             var indicators = LoadIndicators();
-            
+
             return indicators
                 .Where(i => i.CDEEBC_ProdNeta > 3000)
                 .OrderBy(i => i.CDEEBC_ProdNeta)
@@ -193,7 +193,7 @@ namespace T4_PR1_CristianSala.Model
         public List<EnergeticIndicator> GetRecordsWithGasolinaGreaterThan100()
         {
             var indicators = LoadIndicators();
-            
+
             return indicators
                 .Where(i => i.CCAC_GasolinaAuto > 100)
                 .OrderByDescending(i => i.CCAC_GasolinaAuto)
@@ -207,11 +207,11 @@ namespace T4_PR1_CristianSala.Model
         public List<dynamic> GetAverageProdNetaPerYear()
         {
             var indicators = LoadIndicators();
-            
+
             return indicators
                 .GroupBy(i => i.GetYear())
                 .Where(g => g.Key > 0) // Filter out invalid years
-                .Select(g => new 
+                .Select(g => new
                 {
                     Any = g.Key,
                     AverageProdNeta = g.Average(i => i.CDEEBC_ProdNeta)
@@ -227,11 +227,11 @@ namespace T4_PR1_CristianSala.Model
         public List<EnergeticIndicator> GetRecordsWithHighDemandAndLowProduction()
         {
             var indicators = LoadIndicators();
-            
+
             //merged && into a pattern to improve readability
             return indicators
                 .Where(i => i is { CDEEBC_DemandaElectr: > 4000, CDEEBC_ProdDisp: < 300 })
                 .ToList();
-        }
+        }*/
     }
 }
