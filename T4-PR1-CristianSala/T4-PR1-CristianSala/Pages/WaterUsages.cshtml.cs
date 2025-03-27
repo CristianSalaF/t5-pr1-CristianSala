@@ -30,5 +30,11 @@ namespace T4_PR1_CristianSala.Pages
             AverageConsumByComarca = _ecoEnergyDbService.GetAverageUsageByComarca();
             SuspiciousValues = _ecoEnergyDbService.GetSuspiciousUsageValues();
         }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            _ecoEnergyDbService.DeleteWaterUsage(id);
+            return RedirectToPage();
+        }
     }
 }

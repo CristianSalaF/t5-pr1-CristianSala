@@ -37,6 +37,7 @@ else
                     <th>Prod. Neta</th>
                     <th>Prod. Disponible</th>
                     <th>Demanda Elèctr.</th>
+                    <th>Accions</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +55,12 @@ else
                         <td>@indicator.CDEEBC_ProdNeta.ToString("F2")</td>
                         <td>@indicator.CDEEBC_ProdDisp.ToString("F2")</td>
                         <td>@indicator.CDEEBC_DemandaElectr.ToString("F2")</td>
+                        <td>
+                            <form method="post" asp-page-handler="Delete">
+                                <input type="hidden" name="id" value="@indicator.ID" />
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Esteu segur que voleu eliminar aquest registre?');">Eliminar</button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
