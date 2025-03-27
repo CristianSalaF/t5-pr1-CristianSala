@@ -2,16 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using T4_PR1_CristianSala.Model;
+using T4_PR1_CristianSala.Service;
 
 namespace T4_PR1_CristianSala.Pages
 {
     public class AddWaterUsageModel : PageModel
     {
-        private readonly WaterUsageFileManager _manager;
+        private readonly EcoEnergyDbService _ecoEnergyDbService;
 
-        public AddWaterUsageModel()
+        public AddWaterUsageModel(EcoEnergyDbService ecoEnergyDbService)
         {
-            _manager = new WaterUsageFileManager();
+            _ecoEnergyDbService = ecoEnergyDbService;
             UsageInputModel = new WaterUsageInputModel();
         }
 
@@ -71,7 +72,7 @@ namespace T4_PR1_CristianSala.Pages
                 ConsumDomesticPerCapita = UsageInputModel.ConsumDomesticPerCapita
             };
 
-            _manager.SaveUsage(usage);
+            _ecoEnergyDbService.SaveWaterUsage(usage);
 
             return RedirectToPage("./WaterUsages");
         }

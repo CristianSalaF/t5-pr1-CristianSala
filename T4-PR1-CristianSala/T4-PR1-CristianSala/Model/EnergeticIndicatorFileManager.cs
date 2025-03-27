@@ -7,7 +7,6 @@ namespace T4_PR1_CristianSala.Model
         private const string IndicadorsFilePath = "ModelData/indicadors_energetics_cat.csv";
         private const string IndicadorsJsonPath = "ModelData/indicadors_energetics_cat.json";
         
-        /*
         public EnergeticIndicatorFileManager()
         {
             FileExistsOrCreateJson();
@@ -232,6 +231,6 @@ namespace T4_PR1_CristianSala.Model
             return indicators
                 .Where(i => i is { CDEEBC_DemandaElectr: > 4000, CDEEBC_ProdDisp: < 300 })
                 .ToList();
-        }*/
+        }
     }
 }
