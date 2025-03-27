@@ -10,14 +10,14 @@ namespace T4_PR1_CristianSala.Pages
     {
         private readonly EcoEnergyDbService _ecoEnergyDbService;
 
+        [BindProperty]
+        public SimulationInputModel SimulationInput { get; set; }
+
         public AddSimulationModel(EcoEnergyDbService ecoEnergyDbService)
         {
             _ecoEnergyDbService = ecoEnergyDbService;
             SimulationInput = new SimulationInputModel();
         }
-
-        [BindProperty]
-        public SimulationInputModel SimulationInput { get; set; }
 
         public class SimulationInputModel
         {

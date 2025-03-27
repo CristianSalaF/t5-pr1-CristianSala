@@ -1,36 +1,37 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using T4_PR1_CristianSala.Data;
 using T4_PR1_CristianSala.Model;
-using T4_PR1_CristianSala.Persistence.Mapping;
+using T4_PR1_CristianSala.Service;
 
 namespace T4_PR1_CristianSala.Pages
 {
     public class EnergeticIndicatorsModel : PageModel
     {
-        private readonly EcoEnergyDbContext _context;
-        private readonly EnergeticIndicatorsCRUD _crud;
+        private readonly EcoEnergyDbService _ecoEnergyDbService;
 
-        public List<EnergeticIndicator> Indicators { get; set; } = [];
-        public List<EnergeticIndicator> HighProdNetaRecords { get; set; } = [];
-        public List<EnergeticIndicator> HighGasolinaRecords { get; set; } = [];
-        public List<dynamic> AverageProdNetaPerYear { get; set; } = [];
-        public List<EnergeticIndicator> HighDemandLowProductionRecords { get; set; } = [];
+        public List<EnergeticIndicator> Indicators { get; set; }
+        public List<EnergeticIndicator> HighProdNetaRecords { get; set; }
+        public List<EnergeticIndicator> HighGasolinaRecords { get; set; }
+        public List<dynamic> AverageProdNetaPerYear { get; set; }
+        public List<EnergeticIndicator> HighDemandLowProductionRecords { get; set; }
 
-        public EnergeticIndicatorsModel(EcoEnergyDbContext context)
+        public EnergeticIndicatorsModel(EcoEnergyDbService ecoEnergyDbService)
         {
-            _context = context;
-            _crud = new EnergeticIndicatorsCRUD(context);
+            _ecoEnergyDbService = ecoEnergyDbService;
+            Indicators = new List<EnergeticIndicator>();
+            HighProdNetaRecords = new List<EnergeticIndicator>();
+            HighGasolinaRecords = new List<EnergeticIndicator>();
+            AverageProdNetaPerYear = new List<dynamic>();
+            HighDemandLowProductionRecords = new List<EnergeticIndicator>();
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Indicators = await _context.EnergeticIndicators.ToListAsync();
-            HighProdNetaRecords = await _crud.GetRecordsWithProdNetaGreaterThan3000();
-            HighGasolinaRecords = await _crud.GetRecordsWithGasolinaGreaterThan100();
-            AverageProdNetaPerYear = await _crud.GetAverageProdNetaPerYear();
-            HighDemandLowProductionRecords = await _crud.GetRecordsWithHighDemandAndLowProduction();
+            Indicators = _ecoEnergyDbService.GetAllEnergeticIndicators();
+            HighProdNetaRecords = _ecoEnergyDbService.GetRecordsWithProdNetaGreaterThan3000();
+            HighGasolinaRecords = _ecoEnergyDbService.GetRecordsWithGasolinaGreaterThan100();
+            AverageProdNetaPerYear = _ecoEnergyDbService.GetAverageProdNetaPerYear();
+            HighDemandLowProductionRecords = _ecoEnergyDbService.GetRecordsWithHighDemandAndLowProduction();
         }
     }
 }
