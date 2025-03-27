@@ -17,6 +17,36 @@ namespace T4_PR1_CristianSala.Service
             return _context.Set<BaseSimulation>().ToList();
         }
 
+        public List<WaterUsage> GetAllWaterUsages()
+        {
+            return _context.Set<WaterUsage>().ToList();
+        }
+
+        public List<WaterUsage> GetTop10MunicipisWithHighestConsum()
+        {
+            return _context.WaterUsages.OrderByDescending(w => w.Total).Take(10).ToList();
+        }
+
+        public List<dynamic> GetAverageUsageByComarca()
+        {
+            return _context.WaterUsages.GroupBy(w => w.Comarca)
+                .Select(g => new
+                {
+                    Comarca = g.Key,
+                    AverageConsum = g.Average(w => w.ConsumDomesticPerCapita)
+                }).ToList<dynamic>();
+        }
+
+        public List<WaterUsage> GetSuspiciousUsageValues()
+        {
+            return _context.WaterUsages.Where(w => w.Total >= 1000000).ToList();
+        }
+
+        public List<EnergeticIndicator> GetAllEnergeticIndicators()
+        {
+            return _context.Set<EnergeticIndicator>().ToList();
+        }
+
         public void SaveSimulation(BaseSimulation simulation)
         {
             switch (simulation)
