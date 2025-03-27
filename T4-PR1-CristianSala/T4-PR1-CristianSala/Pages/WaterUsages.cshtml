@@ -18,41 +18,48 @@
 }
 else
 {
-    <div class="mb-3">
-        <p>Total de registres: <strong>@Model.Usages.Count</strong></p>
-    </div>
+	<div class="mb-3">
+		<p>Total de registres: <strong>@Model.Usages.Count</strong></p>
+	</div>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Any</th>
-                    <th>Codi comarca</th>
-                    <th>Comarca</th>
-                    <th>Població</th>
-                    <th>Domèstic xarxa</th>
-                    <th>Activitats econòmiques</th>
-                    <th>Total</th>
-                    <th>Consum per càpita</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var usage in Model.Usages)
-                {
-                    <tr>
-                        <td>@usage.Any</td>
-                        <td>@usage.CodiComarca</td>
-                        <td>@usage.Comarca</td>
-                        <td>@usage.Poblacio</td>
-                        <td>@usage.DomesticXarxa</td>
-                        <td>@usage.ActivitatsEconomiquesIFontsPropies</td>
-                        <td>@usage.Total</td>
-                        <td>@usage.ConsumDomesticPerCapita.ToString("F2")</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered">
+			<thead>
+			<tr>
+				<th>Any</th>
+				<th>Codi comarca</th>
+				<th>Comarca</th>
+				<th>Població</th>
+				<th>Domèstic xarxa</th>
+				<th>Activitats econòmiques</th>
+				<th>Total</th>
+				<th>Consum per càpita</th>
+				<th>Accions</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var usage in Model.Usages)
+			{
+				<tr>
+					<td>@usage.Any</td>
+					<td>@usage.CodiComarca</td>
+					<td>@usage.Comarca</td>
+					<td>@usage.Poblacio</td>
+					<td>@usage.DomesticXarxa</td>
+					<td>@usage.ActivitatsEconomiquesIFontsPropies</td>
+					<td>@usage.Total</td>
+					<td>@usage.ConsumDomesticPerCapita.ToString("F2")</td>
+					<td>
+						<form method="post" asp-page-handler="Delete">
+							<input type="hidden" name="id" value="@usage.ID" />
+							<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Esteu segur que voleu eliminar aquest registre?');">Eliminar</button>
+						</form>
+					</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
 
     <hr />
 
