@@ -1,7 +1,88 @@
 # t5-pr1-CristianSala
 
+## Single source of truth (SSOT)
 
-### NuGet Package Manager log (OK)
+This project has been designed with the intention of having a single source of truth, 
+which is the database in order to handle/store the data.
+
+How it compares with the previous version? The previous version used to grab data from the CSV files, 
+and stored it into json, csv and xml.
+
+## Code-first approach
+This approach was used for convenience, due to having done/processed the parameters for the full CSV files, before it was changed. 
+
+This simplified the implementation for a code-first approach while also providing consistent results. A DBContext has been used to achieve this.
+
+## User Interface
+The website looks and feels exactly like in T4-PR1, however there's one change that adds to this functionality. 
+
+![img2.png](img/img_2.png)
+In the section where all the columns are, at the end of each row there is a "Eliminar" button, 
+which if clicked will prompt a popup confirmation, and upon confirmation, it will delete the selected row and refresh the page to display the updated list.
+
+## Simulations DB implementation
+The simulations class uses a string as a discriminator based on the type of object. 
+
+This type will vary based on a controlled set of values. 
+
+![img.png](img/img.png) 
+(Sistema Solar/Eòlic/Hidroelèctric)
+
+## CustomMaps and [Ignore] (CSVHelper)
+In order to properly map the attibutes from the CSV to the Model data, I had to ignore the "ID" field, which the aforementioned tag from CSVHelper, did help.
+```c# 
+public class WaterUsageMap : ClassMap<WaterUsage>
+{
+    public WaterUsageMap()
+    {
+        Map(m => m.Any).Name("Any");
+        Map(m => m.CodiComarca).Name("Codi comarca");
+        Map(m => m.Comarca).Name("Comarca");
+        Map(m => m.Poblacio).Name("Població");
+        Map(m => m.DomesticXarxa).Name("Domèstic xarxa");
+        Map(m => m.ActivitatsEconomiquesIFontsPropies).Name("Activitats econòmiques i fonts pròpies");
+        Map(m => m.Total).Name("Total");
+        Map(m => m.ConsumDomesticPerCapita).Name("Consum domèstic per càpita");
+    }
+}
+```
+```c# 
+public class WaterUsage
+{
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Ignore]
+    //this is set to null so EF Core will auto-generate the values, check SeedWaterUsagesAsync() in Services/EcoEnergySeedingService
+    public int? ID { get; set; } = null;
+    public int Any { get; set; }
+    public int CodiComarca { get; set; }
+    public string Comarca { get; set; } = string.Empty;
+    public int Poblacio { get; set; }
+    public int DomesticXarxa { get; set; }
+    public int ActivitatsEconomiquesIFontsPropies { get; set; }
+    public int Total { get; set; }
+    public double ConsumDomesticPerCapita { get; set; }
+}
+```
+
+Another thing i had to implement was custom ClassMap for the data reliant on the csv files (Seeding service for the first data import).
+
+## Asynchronous seeding service
+There is a registered service in Program that handles this, this is a new implementation that wasn't a part of T4-PR1 at all.
+It makes use of a ILogger<EcoEnergySeedingService> which made it easier to debug.
+
+If the database is already seeded, it prevents from doing so again to avoid duplicated data.
+
+Also, it doesn't need any interaction from the user to work. It does that on launch because of it being a Scoped service.
+
+## Refactor (last minute changes and optimizations)
+The ClassDiagram.cd has been also updated to match the current solution.
+The EcoEnergyDbService has been split using partial classes, since it acts as the CRUD manager.
+
+![img0](img/0.png)
+![img_1.png](img/img_1.png)
+
+### NuGet Package Manager log (Migration OK)
 
 Create database in SqlServer management studio using: 
 `create database EcoEnergyDB;`
