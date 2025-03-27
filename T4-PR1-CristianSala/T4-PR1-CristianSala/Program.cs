@@ -18,7 +18,6 @@ namespace T4_PR1_CristianSala
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<EcoEnergySeedingService>();
-
             builder.Services.AddScoped<EcoEnergyDbService>();
 
             var app = builder.Build();

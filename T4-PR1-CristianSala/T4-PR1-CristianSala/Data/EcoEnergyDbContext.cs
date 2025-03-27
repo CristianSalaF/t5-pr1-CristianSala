@@ -18,7 +18,7 @@ namespace T4_PR1_CristianSala.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Tabe Per Hierarchy(TPH) inheritance pattern 
+            // Table Per Hierarchy(TPH) inheritance pattern 
             // simplifies data and database handling 
             // all derived types are stored in the same table
             modelBuilder.Entity<BaseSimulation>()
