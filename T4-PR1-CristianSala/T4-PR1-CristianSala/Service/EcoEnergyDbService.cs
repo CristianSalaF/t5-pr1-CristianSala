@@ -17,36 +17,6 @@ namespace T4_PR1_CristianSala.Service
             return _context.Set<BaseSimulation>().ToList();
         }
 
-        public List<WaterUsage> GetAllWaterUsages()
-        {
-            return _context.Set<WaterUsage>().ToList();
-        }
-
-        public List<WaterUsage> GetTop10MunicipisWithHighestConsum()
-        {
-            return _context.WaterUsages.OrderByDescending(w => w.Total).Take(10).ToList();
-        }
-
-        public List<dynamic> GetAverageUsageByComarca()
-        {
-            return _context.WaterUsages.GroupBy(w => w.Comarca)
-                .Select(g => new
-                {
-                    Comarca = g.Key,
-                    AverageConsum = g.Average(w => w.ConsumDomesticPerCapita)
-                }).ToList<dynamic>();
-        }
-
-        public List<WaterUsage> GetSuspiciousUsageValues()
-        {
-            return _context.WaterUsages.Where(w => w.Total >= 1000000).ToList();
-        }
-
-        public List<EnergeticIndicator> GetAllEnergeticIndicators()
-        {
-            return _context.Set<EnergeticIndicator>().ToList();
-        }
-
         public void SaveSimulation(BaseSimulation simulation)
         {
             switch (simulation)
@@ -86,6 +56,32 @@ namespace T4_PR1_CristianSala.Service
                 _context.SaveChanges();
         }
 
+        //WaterUsages
+        public List<WaterUsage> GetAllWaterUsages()
+        {
+            return _context.Set<WaterUsage>().ToList();
+        }
+
+        public List<WaterUsage> GetTop10MunicipisWithHighestConsum()
+        {
+            return _context.WaterUsages.OrderByDescending(w => w.Total).Take(10).ToList();
+        }
+
+        public List<dynamic> GetAverageUsageByComarca()
+        {
+            return _context.WaterUsages.GroupBy(w => w.Comarca)
+                .Select(g => new
+                {
+                    Comarca = g.Key,
+                    AverageConsum = g.Average(w => w.ConsumDomesticPerCapita)
+                }).ToList<dynamic>();
+        }
+
+        public List<WaterUsage> GetSuspiciousUsageValues()
+        {
+            return _context.WaterUsages.Where(w => w.Total >= 1000000).ToList();
+        }
+
         public void SaveWaterUsage(WaterUsage waterUsage)
         {
             _context.WaterUsages.Add(waterUsage);
@@ -100,6 +96,37 @@ namespace T4_PR1_CristianSala.Service
                 _context.WaterUsages.Remove(waterUsage);
                 _context.SaveChanges();
             }
+        }
+
+        //EnergeticIndicators
+        public List<EnergeticIndicator> GetAllEnergeticIndicators()
+        {
+            return _context.Set<EnergeticIndicator>().ToList();
+        }
+
+        public List<EnergeticIndicator> GetRecordsWithProdNetaGreaterThan3000()
+        {
+            return _context.EnergeticIndicators.Where(e => e.CDEEBC_ProdNeta > 3000).ToList();
+        }
+
+        public List<EnergeticIndicator> GetRecordsWithGasolinaGreaterThan100()
+        {
+            return _context.EnergeticIndicators.Where(e => e.CCAC_GasolinaAuto > 100).ToList();
+        }
+
+        public List<dynamic> GetAverageProdNetaPerYear()
+        {
+            return _context.EnergeticIndicators.GroupBy(e => e.Data)
+                .Select(g => new
+                {
+                    Any = g.Key,
+                    AverageProdNeta = g.Average(e => e.CDEEBC_ProdNeta)
+                }).ToList<dynamic>();
+        }
+
+        public List<EnergeticIndicator> GetRecordsWithHighDemandAndLowProduction()
+        {
+            return _context.EnergeticIndicators.Where(e => e.CDEEBC_DemandaElectr > 1000 && e.CDEEBC_ProdNeta < 1000).ToList();
         }
 
         public void SaveEnergeticIndicator(EnergeticIndicator energeticIndicator)

@@ -9,6 +9,11 @@ namespace T4_PR1_CristianSala.Pages
     {
         private readonly EcoEnergyDbService _ecoEnergyDbService;
 
+        public List<WaterUsage> Usages { get; set; }
+        public List<WaterUsage> Top10Municipis { get; set; }
+        public List<dynamic> AverageConsumByComarca { get; set; }
+        public List<WaterUsage> SuspiciousValues { get; set; }
+
         public WaterUsagesModel(EcoEnergyDbService ecoEnergyDbService)
         {
             _ecoEnergyDbService = ecoEnergyDbService;
@@ -17,11 +22,6 @@ namespace T4_PR1_CristianSala.Pages
             AverageConsumByComarca = new List<dynamic>();
             SuspiciousValues = new List<WaterUsage>();
         }
-
-        public List<WaterUsage> Usages { get; set; }
-        public List<WaterUsage> Top10Municipis { get; set; }
-        public List<dynamic> AverageConsumByComarca { get; set; }
-        public List<WaterUsage> SuspiciousValues { get; set; }
 
         public void OnGet()
         {
