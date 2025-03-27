@@ -15,6 +15,11 @@ namespace T4_PR1_CristianSala.Service
         private readonly EcoEnergyDbContext _context;
         private readonly ILogger<EcoEnergySeedingService> _logger;
 
+        /// <summary>
+        /// Dependency injection for the DbContext and the logger.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="logger"></param>
         public EcoEnergySeedingService(
             EcoEnergyDbContext context,
             ILogger<EcoEnergySeedingService> logger)
@@ -23,6 +28,10 @@ namespace T4_PR1_CristianSala.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// Seeds the database asynchronously, after checking if it was already seeded, then logs it.
+        /// </summary>
+        /// <returns></returns>
         public async Task SeedDatabaseAsync()
         {
             // Check if the database is already seeded
@@ -52,12 +61,25 @@ namespace T4_PR1_CristianSala.Service
             }
         }
 
+        /// <summary>
+        /// Checks if the database has already been seeded and then returns the Task of type bool.
+        /// Since the process is asynchronous, it waits for other taks to finish before doing so.
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> IsDatabaseSeededAsync()
         {
             return await _context.WaterUsages.AnyAsync() ||
                    await _context.EnergeticIndicators.AnyAsync();
         }
 
+        /// <summary>
+        /// Seeding method for the WaterUsages entity:
+        /// -Handles the files
+        /// -Registers the custom class map
+        /// -Sets "Id" to null values so EF Core autogenerates them
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
         private async Task SeedWaterUsagesAsync()
         {
             // Check if WaterUsages are already seeded
@@ -71,7 +93,7 @@ namespace T4_PR1_CristianSala.Service
 
             var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                Delimiter = ",", // Assuming semicolon-separated CSV
+                Delimiter = ",",
                 HasHeaderRecord = true
             };
 
@@ -82,18 +104,21 @@ namespace T4_PR1_CristianSala.Service
             csv.Context.RegisterClassMap<WaterUsageMap>();
 
             var waterUsages = csv.GetRecords<WaterUsage>().ToList();
-            // Set ID to null to ensure EF Core generates it
-            foreach (var waterUsage in waterUsages)
-            {
-                waterUsage.ID = null;
-            }
 
             await _context.WaterUsages.AddRangeAsync(waterUsages);
         }
 
+        /// <summary>
+        /// Seeding method for the WaterUsages entity:
+        /// -Handles the files
+        /// -Registers the custom class map
+        /// -Sets "Id" to null values so EF Core autogenerates them
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
         private async Task SeedEnergeticIndicatorsAsync()
         {
-            // Check if EnergeticIndicators are already seeded
+            // Checks if EnergeticIndicators are already seeded
             if (await _context.EnergeticIndicators.AnyAsync())
                 return;
 
@@ -104,7 +129,7 @@ namespace T4_PR1_CristianSala.Service
 
             var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                Delimiter = ",", // Assuming comma-separated CSV
+                Delimiter = ",",
                 HasHeaderRecord = true
             };
 
@@ -115,11 +140,6 @@ namespace T4_PR1_CristianSala.Service
             csv.Context.RegisterClassMap<EnergeticIndicatorMap>();
 
             var energeticIndicators = csv.GetRecords<EnergeticIndicator>().ToList();
-            // Set ID to null to ensure EF Core generates it
-            foreach (var indicator in energeticIndicators)
-            {
-                indicator.ID = null;
-            }
 
             await _context.EnergeticIndicators.AddRangeAsync(energeticIndicators);
         }
