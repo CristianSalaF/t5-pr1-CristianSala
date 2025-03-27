@@ -33,5 +33,11 @@ namespace T4_PR1_CristianSala.Pages
             AverageProdNetaPerYear = _ecoEnergyDbService.GetAverageProdNetaPerYear();
             HighDemandLowProductionRecords = _ecoEnergyDbService.GetRecordsWithHighDemandAndLowProduction();
         }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            _ecoEnergyDbService.DeleteEnergeticIndicator(id);
+            return RedirectToPage();
+        }
     }
 }

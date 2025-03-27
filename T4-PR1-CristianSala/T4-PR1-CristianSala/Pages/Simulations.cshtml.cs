@@ -20,5 +20,26 @@ namespace T4_PR1_CristianSala.Pages
         {
             Simulations = _ecoEnergyDbService.GetAllSimulations();
         }
+
+        /// <summary>
+        /// Create a dummy simulation object with the correct type, then save it to the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public IActionResult OnPostDelete(int id, string type)
+        {
+            BaseSimulation simulationToDelete = type switch
+            {
+                "Sistema Solar" => new SolarEnergy { ID = id },
+                "Sistema Eòlic" => new WindEnergy { ID = id },
+                "Sistema Hidroelèctric" => new HydroEnergy { ID = id },
+                _ => throw new ArgumentException("Tipus de simulació desconegut")
+            };
+
+            _ecoEnergyDbService.DeleteSimulation(id, simulationToDelete);
+            return RedirectToPage();
+        }
     }
 }
