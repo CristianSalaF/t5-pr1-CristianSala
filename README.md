@@ -4,6 +4,7 @@
 
 This project has been designed with the intention of having a single source of truth, 
 which is the database in order to handle/store the data.
+![img3.png](img/img_3.png)
 
 How it compares with the previous version? The previous version used to grab data from the CSV files, 
 and stored it into json, csv and xml.
