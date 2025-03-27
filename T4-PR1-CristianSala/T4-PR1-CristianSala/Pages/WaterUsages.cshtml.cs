@@ -25,7 +25,6 @@ namespace T4_PR1_CristianSala.Pages
 
         public void OnGet()
         {
-            //Simulations = _ecoEnergyDbService.GetAllSimulations();
             Usages = _ecoEnergyDbService.GetAllWaterUsages();
             Top10Municipis = _ecoEnergyDbService.GetTop10MunicipisWithHighestConsum();
             AverageConsumByComarca = _ecoEnergyDbService.GetAverageUsageByComarca();
